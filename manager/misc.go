@@ -46,7 +46,7 @@ func (m *miscQueryManager) DropAll() error {
 	return err
 }
 
-func (m *miscQueryManager) SetVertexProperty(id int64, keyAndVals ...interface{}) error {
+func (m *miscQueryManager) SetVertexProperty(id string, keyAndVals ...interface{}) error {
 	if len(keyAndVals)%2 != 0 {
 		m.logger.Error("number of parameters ["+strconv.Itoa(len(keyAndVals))+"]",
 			gremerror.NewGrammesError("SetVertexProperty", gremerror.ErrOddNumberOfParameters),

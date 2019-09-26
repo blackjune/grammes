@@ -104,9 +104,9 @@ func (c *getVertexQueryManager) AllVertices() ([]model.Vertex, error) {
 // ID assigned to it. This ID is unique to every
 // vertex on the graph. This is the best way of finding
 // vertices without any conflicting labels or properties.
-func (c *getVertexQueryManager) VertexByID(id int64) (model.Vertex, error) {
+func (c *getVertexQueryManager) VertexByID(id string) (model.Vertex, error) {
 	// Query the graph for a vertex with this ID.
-	vertices, err := c.VerticesByString("g.V().hasId(" + strconv.Itoa(int(id)) + ")")
+	vertices, err := c.VerticesByString("g.V().hasId(" + id + ")")
 	if err != nil {
 		c.logger.Error("error gathering vertices",
 			gremerror.NewGrammesError("VerticesByID", err),
