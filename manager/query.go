@@ -52,13 +52,13 @@ func (m *queryManager) setLogger(newLogger logging.Logger) {
 // request to the gremlin server after turning it
 // into a string.
 func (m *queryManager) ExecuteQuery(query query.Query) ([][]byte, error) {
-	return m.ExecuteBoundStringQuery(query.String(), map[string]string{}, map[string]string{})
+	return m.ExecuteBoundStringQuery(query.String(), map[string]interface{}{}, map[string]interface{}{})
 }
 
 // ExecuteStringQuery takes a string query and
 // uses it to make a request to the gremlin server.
 func (m *queryManager) ExecuteStringQuery(query string) ([][]byte, error) {
-	return m.ExecuteBoundStringQuery(query, map[string]string{}, map[string]string{})
+	return m.ExecuteBoundStringQuery(query, map[string]interface{}{}, map[string]interface{}{})
 }
 
 // Query Bindings:
@@ -66,13 +66,13 @@ func (m *queryManager) ExecuteStringQuery(query string) ([][]byte, error) {
 
 // ExecuteBoundQuery takes a query object and bindings to allow
 // for simplified queries to the gremlin server.
-func (m *queryManager) ExecuteBoundQuery(query query.Query, bindings, rebindings map[string]string) ([][]byte, error) {
+func (m *queryManager) ExecuteBoundQuery(query query.Query, bindings, rebindings map[string]interface{}) ([][]byte, error) {
 	return m.ExecuteBoundStringQuery(query.String(), bindings, rebindings)
 }
 
 // ExecuteBoundStringQuery uses bindings and rebindings to allow
 // for simplified queries to the gremlin server.
-func (m *queryManager) ExecuteBoundStringQuery(query string, bindings, rebindings map[string]string) ([][]byte, error) {
+func (m *queryManager) ExecuteBoundStringQuery(query string, bindings, rebindings map[string]interface{}) ([][]byte, error) {
 	if m.dialer.IsDisposed() {
 		return nil, gremerror.ErrDisposedConnection
 	}

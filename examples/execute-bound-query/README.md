@@ -4,7 +4,7 @@ The basics of executing Gremlin queries that are bound using the `ExecuteBoundQu
 
 ## Description
 
-**execute-bound-query** demonstrates how to execute Gremlin queries that are bound. Specifically this example shows how to execute them using the `ExecuteBoundQuery` function in the Grammes client which takes in a `Query` object, bindings and re-bindings as `map[string]string`. Then returns a `[]byte` and `error`. The `[]byte` can be used to *unmarshal* into any kind of expected result such as a list of vertices.
+**execute-bound-query** demonstrates how to execute Gremlin queries that are bound. Specifically this example shows how to execute them using the `ExecuteBoundQuery` function in the Grammes client which takes in a `Query` object, bindings and re-bindings as `map[string]interface{}`. Then returns a `[]byte` and `error`. The `[]byte` can be used to *unmarshal* into any kind of expected result such as a list of vertices.
 
 ## Prerequisites
 

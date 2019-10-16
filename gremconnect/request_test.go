@@ -31,8 +31,8 @@ import (
 func TestPrepareRequest(t *testing.T) {
 	Convey("Given a query string, binding, and rebindings", t, func() {
 		query := ""
-		bindings := make(map[string]string)
-		rebindings := make(map[string]string)
+		bindings := make(map[string]interface{})
+		rebindings := make(map[string]interface{})
 
 		Convey("And a request is prepared", func() {
 			req, id, err := PrepareRequest(query, bindings, rebindings)

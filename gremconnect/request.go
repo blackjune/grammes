@@ -45,7 +45,7 @@ var (
 
 // PrepareRequest packages a query and binding
 // into the format that Gremlin Server accepts
-func PrepareRequest(query string, bindings, rebindings map[string]string) (req Request, id string, err error) {
+func PrepareRequest(query string, bindings, rebindings map[string]interface{}) (req Request, id string, err error) {
 	var guuid uuid.UUID
 
 	if guuid, err = GenUUID(); err != nil {

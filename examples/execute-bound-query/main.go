@@ -61,8 +61,8 @@ func main() {
 	// Execute the string query with the bindings to the gremlin server.
 	// Using the traversal.Custom type you can create bindings.
 	responses, err := client.ExecuteBoundQuery(g.AddV(t.Custom("x")),
-		map[string]string{"x": "testingvertex"},
-		map[string]string{},
+		map[string]interface{}{"x": "testingvertex"},
+		map[string]interface{}{},
 	)
 	if err != nil {
 		logger.Fatal("Error querying server", zap.Error(err))

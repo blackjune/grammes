@@ -340,7 +340,7 @@ func TestAddVertexByQuery(t *testing.T) {
 	}()
 	dialer := &mockDialer{}
 	client, _ = grammes.Dial(dialer)
-	execute := func(string, map[string]string, map[string]string) ([][]byte, error) {
+	execute := func(string, map[string]interface{}, map[string]interface{}) ([][]byte, error) {
 		return [][]byte{[]byte(vertexResponse)}, nil
 	}
 	client.GraphManager = manager.NewGraphManager(dialer, logging.NewNilLogger(), execute)

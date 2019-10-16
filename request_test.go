@@ -100,7 +100,7 @@ func TestExecuteRequestErrorPreparingRequest(t *testing.T) {
 		copy(a[:], "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa")
 		return uuid.UUID(a), nil
 	}
-	gremPrepareRequest = func(string, map[string]string, map[string]string) (gremconnect.Request, string, error) {
+	gremPrepareRequest = func(string, map[string]interface{}, map[string]interface{}) (gremconnect.Request, string, error) {
 		var req gremconnect.Request
 		return req, "test", errors.New("ERROR")
 	}
@@ -108,8 +108,8 @@ func TestExecuteRequestErrorPreparingRequest(t *testing.T) {
 		dialer := &mockDialerStruct{}
 		c, _ := Dial(dialer)
 		Convey("When 'executeRequest' is called and preparing the request throws an error", func() {
-			bindings := make(map[string]string)
-			rebindings := make(map[string]string)
+			bindings := make(map[string]interface{})
+			rebindings := make(map[string]interface{})
 			_, err := c.executeRequest("testing", bindings, rebindings)
 			Convey("Then the error should be returned", func() {
 				So(err, ShouldNotBeNil)
@@ -134,8 +134,8 @@ func TestExecuteRequestErrorPackagingRequest(t *testing.T) {
 		dialer := &mockDialerStruct{}
 		c, _ := Dial(dialer)
 		Convey("When 'executeRequest' is called and packaging the request throws an error", func() {
-			bindings := make(map[string]string)
-			rebindings := make(map[string]string)
+			bindings := make(map[string]interface{})
+			rebindings := make(map[string]interface{})
 			_, err := c.executeRequest("testing", bindings, rebindings)
 			Convey("Then the error should be returned", func() {
 				So(err, ShouldNotBeNil)
@@ -161,8 +161,8 @@ func TestExecuteRequestErrorRetrievingResponse(t *testing.T) {
 		dialer.response = newVertexResponse
 		c, _ := Dial(dialer)
 		Convey("When 'executeRequest' is called and retrieving the response throws an error", func() {
-			bindings := make(map[string]string)
-			rebindings := make(map[string]string)
+			bindings := make(map[string]interface{})
+			rebindings := make(map[string]interface{})
 			_, err := c.executeRequest("testing", bindings, rebindings)
 			Convey("Then the error should be returned", func() {
 				So(err, ShouldNotBeNil)

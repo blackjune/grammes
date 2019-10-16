@@ -61,7 +61,7 @@ func unmarshalID(data [][]byte) (id string, err error) {
 }
 
 // executor is the function type that is used when passing in executeRequest.
-type executor func(string, map[string]string, map[string]string) ([][]byte, error)
+type executor func(string, map[string]interface{}, map[string]interface{}) ([][]byte, error)
 
 // executor is the function type that is used when passing in ExecuteStringQuery.
 type stringExecutor func(string) ([][]byte, error)
@@ -147,9 +147,9 @@ type ExecuteQuerier interface {
 	// ExecuteStringQuery will execute a string query and return its raw result.
 	ExecuteStringQuery(stringQuery string) (res [][]byte, err error)
 	// ExecuteBoundQuery will execute a query object with bindings and return its raw result.
-	ExecuteBoundQuery(queryObj query.Query, bindings map[string]string, rebindings map[string]string) (res [][]byte, err error)
+	ExecuteBoundQuery(queryObj query.Query, bindings map[string]interface{}, rebindings map[string]interface{}) (res [][]byte, err error)
 	// ExecuteBoundStringQuery will execute a string query with bindings and return its raw result.
-	ExecuteBoundStringQuery(stringQuery string, bindings map[string]string, rebindings map[string]string) (res [][]byte, err error)
+	ExecuteBoundStringQuery(stringQuery string, bindings map[string]interface{}, rebindings map[string]interface{}) (res [][]byte, err error)
 }
 
 // VertexQuerier handles the vertices on the graph.
