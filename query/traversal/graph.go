@@ -28,7 +28,7 @@ package traversal
 // Signatures:
 // V()
 // V(int...)
-func (g String) V(params ...int) String {
+func (g String) V(params ...string) String {
 	// strParam := gatherInts(params...)
 	// g = g.append(fmtStr(".V(%v)", strParam))
 	var p []interface{}

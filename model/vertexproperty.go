@@ -72,7 +72,7 @@ func (p *Property) GetLabel() string {
 // PropertyValue contains the ID,
 // value, and label of this property's value.
 type PropertyValue struct {
-	ID    PropertyID   `json:"id"`
+	ID    string   `json:"id"`
 	Value ValueWrapper `json:"value"`
 	Label string       `json:"label"`
 }
