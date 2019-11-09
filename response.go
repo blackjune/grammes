@@ -22,7 +22,6 @@ package grammes
 
 import (
 	"encoding/json"
-
 	"github.com/northwesternmutual/grammes/gremconnect"
 )
 
@@ -75,10 +74,12 @@ func (c *Client) retrieveResponse(id string) ([][]byte, error) {
 		if dataI, ok := c.results.Load(id); ok {
 
 			for _, d := range dataI.([]interface{}) {
-				if dataPart, err = jsonMarshalData(d); err != nil {
-					return nil, err
+				if err, ok = d.(error); ok {
+					break
 				}
-
+				if dataPart, err = jsonMarshalData(d); err != nil {
+					break
+				}
 				data = append(data, dataPart)
 			}
 
@@ -88,7 +89,7 @@ func (c *Client) retrieveResponse(id string) ([][]byte, error) {
 		}
 	}
 
-	return data, nil
+	return data, err
 }
 
 // deleteRespones deletes the response from the container. Used for cleanup purposes by requester.

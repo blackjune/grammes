@@ -22,7 +22,6 @@ package gremconnect
 
 import (
 	"encoding/json"
-	"log"
 
 	"github.com/northwesternmutual/grammes/gremerror"
 )
@@ -41,7 +40,6 @@ var jsonUnmarshal = json.Unmarshal
 // MarshalResponse creates a Response struct for
 // every incoming Response for further manipulation
 func MarshalResponse(msg []byte) (Response, error) {
-	log.Println(string(msg))
 	var j map[string]interface{}
 
 	err := jsonUnmarshal(msg, &j)
