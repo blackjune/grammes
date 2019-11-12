@@ -77,6 +77,17 @@ var (
 		}
 	}
 	`
+	errorResponse = `
+	{
+		"requestId": "61616161-6161-6161-2d61-6161612d6161",
+		"status": {
+			"message": "",
+			"code": 597,
+			"attributes": {}
+		},
+		"result":{"data":null,"meta":{"@type":"g:Map","@value":[]}}
+	}
+	`
 	badResponse = `
 	{
 		"BADRESPONSE"

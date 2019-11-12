@@ -26,6 +26,8 @@ import (
 	"sync"
 	"testing"
 
+	"github.com/northwesternmutual/grammes/gremerror"
+
 	"github.com/google/uuid"
 	. "github.com/smartystreets/goconvey/convey"
 
@@ -49,7 +51,7 @@ func TestExecuteRequest(t *testing.T) {
 		c, _ := Dial(dialer)
 		Convey("When 'executeRequest' is called with query", func() {
 			q := "testQuery"
-			var b, r map[string]string
+			var b, r map[string]interface{}
 			res, err := c.executeRequest(q, b, r)
 			Convey("Then err should be nil and the test result should be returned", func() {
 				So(err, ShouldBeNil)
@@ -158,7 +160,17 @@ func TestExecuteRequestErrorRetrievingResponse(t *testing.T) {
 	jsonMarshalData = func(interface{}) ([]byte, error) { return nil, errors.New("ERROR") }
 	Convey("Given a client that represents the Gremlin client", t, func() {
 		dialer := &mockDialerStruct{}
-		dialer.response = newVertexResponse
+		dialer.response = `
+			{
+				"requestId": "61616161-6161-6161-2d61-6161612d6161",
+				"status": {
+					"message": "",
+					"code": 597,
+					"attributes": {}
+				},
+				"result":{"data":null,"meta":{"@type":"g:Map","@value":[]}}
+			}
+			`
 		c, _ := Dial(dialer)
 		Convey("When 'executeRequest' is called and retrieving the response throws an error", func() {
 			bindings := make(map[string]interface{})
@@ -166,6 +178,10 @@ func TestExecuteRequestErrorRetrievingResponse(t *testing.T) {
 			_, err := c.executeRequest("testing", bindings, rebindings)
 			Convey("Then the error should be returned", func() {
 				So(err, ShouldNotBeNil)
+			})
+			Convey("Then the error should be gremerror.NetworkError", func() {
+				_, ok := err.(*gremerror.NetworkError)
+				So(ok, ShouldBeTrue)
 			})
 		})
 	})
